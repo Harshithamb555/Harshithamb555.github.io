@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harshitha M B | ML Engineer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E1512;
+    --surface:#151F19;
+    --surface-2:#1B2721;
+    --ink:#F3F0E7;
+    --ink-dim:#B9C2BA;
+    --accent:#D9A441;
+    --accent-2:#6FA98C;
+    --line: rgba(243,240,231,0.10);
+    --line-strong: rgba(243,240,231,0.20);
+    --radius: 4px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 32px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .cell-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--accent);
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .cell-tag::before{
+    content:'';
+    width:7px;height:7px;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,21,18,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .nav-brand{font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--ink-dim);}
+  .nav-links{display:flex; gap:28px; font-family:'IBM Plex Mono', monospace; font-size:13px;}
+  .nav-links a{color:var(--ink-dim); transition:color .2s;}
+  .nav-links a:hover{color:var(--accent);}
+
+  /* HERO */
+  .hero{padding:110px 0 90px; border-bottom:1px solid var(--line);}
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(38px, 6.5vw, 68px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .accent{color:var(--accent); font-style:italic;}
+  .hero-role{
+    margin-top:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+    color:var(--ink-dim);
+    border-left:2px solid var(--accent-2);
+    padding-left:14px;
+  }
+  .hero-desc{
+    margin-top:26px;
+    max-width:560px;
+    color:var(--ink-dim);
+    font-size:16px;
+  }
+  .hero-actions{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    padding:12px 22px;
+    border-radius:var(--radius);
+    border:1px solid var(--line-strong);
+    transition:all .2s;
+  }
+  .btn-primary{background:var(--accent); color:#161310; border-color:var(--accent); font-weight:600;}
+  .btn-primary:hover{background:#e8b45a;}
+  .btn-ghost:hover{border-color:var(--accent-2); color:var(--accent-2);}
+
+  section{padding:80px 0; border-bottom:1px solid var(--line);}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:44px; flex-wrap:wrap; gap:10px;}
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:32px;
+  }
+  .section-head .count{font-family:'IBM Plex Mono', monospace; color:var(--ink-dim); font-size:13px;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns: 1.3fr 1fr; gap:60px;}
+  .about-grid p{color:var(--ink-dim); margin-bottom:16px;}
+  .stat-block{border:1px solid var(--line); background:var(--surface); border-radius:var(--radius); padding:20px;}
+  .stat-row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono', monospace; font-size:13px;}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row span:last-child{color:var(--accent-2); text-align:right;}
+
+  /* SKILLS */
+  .skills-grid{display:grid; grid-template-columns: repeat(2, 1fr); gap:36px 60px;}
+  .skill-cat h3{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em; margin-bottom:16px;}
+  .skill-item{margin-bottom:14px;}
+  .skill-label{display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px;}
+  .skill-bar-track{height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden;}
+  .skill-bar-fill{height:100%; background:var(--accent-2); border-radius:3px;}
+  .tag-cloud{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+  .tag-cloud .tag{font-family:'IBM Plex Mono', monospace; font-size:12px; padding:6px 10px; border:1px solid var(--line-strong); border-radius:3px; color:var(--ink-dim);}
+
+  /* EXPERIENCE */
+  .exp-row{
+    display:grid; grid-template-columns: 170px 1fr; gap:24px;
+    padding:28px 0; border-top:1px solid var(--line);
+  }
+  .exp-row:last-child{border-bottom:1px solid var(--line);}
+  .exp-date{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--accent);}
+  .exp-role{font-family:'Fraunces', serif; font-size:20px; font-weight:600; margin-bottom:6px;}
+  .exp-org{color:var(--ink-dim); font-size:14px; margin-bottom:10px;}
+  .exp-desc{color:var(--ink-dim); font-size:14px;}
+  .exp-desc li{margin-bottom:6px; margin-left:18px;}
+
+  /* PROJECTS */
+  .project-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .project-card{
+    border:1px solid var(--line); background:var(--surface);
+    border-radius:var(--radius); padding:24px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:border-color .2s, transform .2s;
+  }
+  .project-card:hover{border-color:var(--accent-2); transform:translateY(-2px);}
+  .project-card h3{font-family:'Fraunces', serif; font-size:19px; font-weight:600;}
+  .project-card p{color:var(--ink-dim); font-size:13.5px;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:auto;}
+  .tag{font-family:'IBM Plex Mono', monospace; font-size:11px; padding:4px 8px; border:1px solid var(--line-strong); border-radius:3px; color:var(--ink-dim);}
+
+  /* EDUCATION */
+  .edu-item{padding:20px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;}
+  .edu-item:last-child{border-bottom:1px solid var(--line);}
+  .edu-item h3{font-family:'Fraunces', serif; font-size:19px; font-weight:600;}
+  .edu-item .edu-sub{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--ink-dim);}
+  .edu-item .edu-score{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--accent-2);}
+
+  /* CERTS */
+  .cert-item{display:flex; justify-content:space-between; padding:16px 0; border-top:1px solid var(--line); font-size:14px; flex-wrap:wrap; gap:6px;}
+  .cert-item:last-child{border-bottom:1px solid var(--line);}
+  .cert-item span:last-child{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-dim);}
+
+  /* CONTACT */
+  .contact{text-align:left;}
+  .contact h2{font-family:'Fraunces', serif; font-size:clamp(30px,4.6vw,48px); font-weight:600; max-width:620px;}
+  .contact-links{display:flex; gap:28px; margin-top:36px; flex-wrap:wrap; font-family:'IBM Plex Mono', monospace; font-size:14px;}
+  .contact-links a{border-bottom:1px solid var(--line-strong); padding-bottom:3px; transition:border-color .2s, color .2s;}
+  .contact-links a:hover{color:var(--accent); border-color:var(--accent);}
+
+  footer{padding:36px 0; text-align:center; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-dim);}
+
+  @media (max-width: 760px){
+    .about-grid, .skills-grid, .project-grid{grid-template-columns:1fr;}
+    .exp-row{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="nav-brand"></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero wrap">
+  <div class="cell-tag">AI/ML Intern @ Scontinent Technologies</div>
+  <h1>Harshitha M B<br><span class="accent">ML Engineer</span></h1>
+  <div class="hero-role mono">Building end-to-end ML pipelines &mdash; Python, TensorFlow, Scikit-learn</div>
+  <p class="hero-desc">
+    Motivated ML enthusiast with hands-on experience building end-to-end machine
+    learning pipelines, data preprocessing workflows, and deploying predictive
+    models. Proficient in Python, Scikit-learn, TensorFlow, and deep learning
+    fundamentals. Certified in Prompt Engineering.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    <a href="mailto:harshithamb555@gmail.com" class="btn btn-ghost">Email Me</a>
+  </div>
+</section>
+
+<section id="about" class="wrap">
+  <div class="section-head">
+    <h2>About</h2>
+    <span class="count mono">02 / 07</span>
+  </div>
+  <div class="about-grid">
+    <div>
+      <p>Currently gaining industry exposure as an AI/ML Intern at Scontinent Technologies, working across preprocessing, feature engineering, and model evaluation using Python, Scikit-learn, and TensorFlow.</p>
+      <p>Also exploring LangChain LLM workflows and prompt engineering (zero-shot, few-shot, chain-of-thought) for generative AI prototypes &mdash; backed by a certification in Advanced Prompt Engineering with ChatGPT from upGrad.</p>
+    </div>
+    <div class="stat-block">
+      <div class="stat-row"><span>Phone</span><span>+91 7975896388</span></div>
+      <div class="stat-row"><span>Email</span><span>harshithamb555@gmail.com</span></div>
+      <div class="stat-row"><span>LinkedIn</span><span>harshitha-mb</span></div>
+      <div class="stat-row"><span>GitHub</span><span>Harshithamb555</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <div class="section-head">
+    <h2>Skills</h2>
+    <span class="count mono">03 / 07</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cat">
+      <h3>Languages</h3>
+      <div class="skill-item">
+        <div class="skill-label"><span>Python</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-label"><span>SQL (MySQL)</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+      <h3 style="margin-top:24px;">MLOps &amp; Tools</h3>
+      <div class="tag-cloud">
+        <span class="tag">Jupyter Notebook</span>
+        <span class="tag">Flask</span>
+        <span class="tag">Git &amp; GitHub</span>
+        <span class="tag">Model Evaluation (F1, RMSE, AUC-ROC)</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h3>ML / Deep Learning</h3>
+      <div class="tag-cloud">
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">LSTM</span>
+        <span class="tag">Random Forest</span>
+        <span class="tag">K-Means</span>
+        <span class="tag">Decision Trees</span>
+      </div>
+      <h3 style="margin-top:24px;">Data Science</h3>
+      <div class="tag-cloud">
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Seaborn</span>
+        <span class="tag">EDA</span>
+        <span class="tag">Feature Engineering</span>
+        <span class="tag">Statistics</span>
+      </div>
+      <h3 style="margin-top:24px;">AI / LLM</h3>
+      <div class="tag-cloud">
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">Zero-shot</span>
+        <span class="tag">Few-shot</span>
+        <span class="tag">Chain-of-Thought</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="wrap">
+  <div class="section-head">
+    <h2>Experience</h2>
+    <span class="count mono">04 / 07</span>
+  </div>
+  <div class="exp-row">
+    <div class="exp-date mono">Feb 2026 &ndash; June 2026</div>
+    <div>
+      <div class="exp-role">AI/ML Intern</div>
+      <div class="exp-org">Scontinent Technologies Pvt Ltd</div>
+      <ul class="exp-desc">
+        <li>Built ML pipelines using Python, Scikit-learn, and TensorFlow covering preprocessing, feature engineering, and model evaluation.</li>
+        <li>Explored LangChain LLM workflows and prompt engineering (zero-shot, few-shot, CoT) for Generative AI prototypes.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="wrap">
+  <div class="section-head">
+    <h2>Projects</h2>
+    <span class="count mono">05 / 07</span>
+  </div>
+  <div class="project-grid">
+    <div class="project-card">
+      <h3>AI-Based Disaster Prediction System</h3>
+      <p>Built a classification model on climate data to forecast natural disasters; deployed via Flask REST API for real-time predictions.</p>
+      <div class="tag-row">
+        <span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">Scikit-learn</span><span class="tag">Flask</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <h3>Electricity Consumption Forecasting</h3>
+      <p>Developed a time-series model to detect usage anomalies from large-scale datasets with JSON/CSV-based API ingestion pipelines.</p>
+      <div class="tag-row">
+        <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="wrap">
+  <div class="section-head">
+    <h2>Education</h2>
+    <span class="count mono">06 / 07</span>
+  </div>
+  <div class="edu-item">
+    <div>
+      <h3>Master of Computer Applications (MCA)</h3>
+      <div class="edu-sub">Bangalore Institute of Technology, Bengaluru &middot; 2024 &ndash; 2026</div>
+    </div>
+    <span class="edu-score">CGPA: 8.98</span>
+  </div>
+  <div class="edu-item">
+    <div>
+      <h3>Bachelor of Computer Applications (BCA)</h3>
+      <div class="edu-sub">PES Science, Arts and Commerce College, Mandya &middot; 2021 &ndash; 2024</div>
+    </div>
+    <span class="edu-score">87.1%</span>
+  </div>
+</section>
+
+<section id="certifications" class="wrap" style="border-bottom:none;">
+  <div class="section-head">
+    <h2>Certifications</h2>
+    <span class="count mono">07 / 07</span>
+  </div>
+  <div class="cert-item">
+    <span>Advanced Prompt Engineering with ChatGPT</span>
+    <span>upGrad &middot; Zero-shot, Few-shot, Chain-of-Thought</span>
+  </div>
+</section>
+
+<section id="contact" class="wrap contact" style="border-bottom:none;">
+  <div class="cell-tag">Contact</div>
+  <h2>Let's talk about ML,<br>opportunities, or both.</h2>
+  <div class="contact-links">
+    <a href="mailto:harshithamb555@gmail.com">harshithamb555@gmail.com</a>
+    <a href="tel:+917975896388">+91 7975896388</a>
+    <a href="https://linkedin.com/in/harshitha-mb" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/Harshithamb555" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</section>
+
+<footer>&copy; 2026 Harshitha M B. Built with care.</footer>
+
+</body>
+</html>
